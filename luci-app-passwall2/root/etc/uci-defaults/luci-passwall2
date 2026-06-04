@@ -68,11 +68,11 @@ UPTIME=$(cut -d. -f1 /proc/uptime 2>/dev/null || echo 0)
 
 if [ "$UPTIME" -gt 300 ]; then
 	logger -t uci-defaults "Passwall2 live upgrade detected (Uptime: ${UPTIME}s). Marking..."
-#	(
+	(
 #		sleep 3
-#		[ -x "/etc/init.d/passwall2" ] && /etc/init.d/passwall2 restart
+		[ -x "/etc/init.d/passwall2" ] && /etc/init.d/passwall2 start >/dev/null 2>&1
 #		[ -x "/etc/init.d/passwall2_server" ] && /etc/init.d/passwall2_server restart
-#	) &
+	) &
 else
 	logger -t uci-defaults "Passwall2 first boot detected (Uptime: ${UPTIME}s). Skipping auto-restart to avoid boot loop."
 fi
